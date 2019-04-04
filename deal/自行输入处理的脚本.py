@@ -22,6 +22,7 @@ def select_str(name):
 
 a=input("输入url包含的字符:")
 urls=select_str(name)
+urls=list(set(urls))
 with open("urls_results.txt","w+",encoding="utf-8") as f:
     for url in urls:
         if a in url:

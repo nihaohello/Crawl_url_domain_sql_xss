@@ -20,6 +20,7 @@ if len(sys.argv) != 2:
     exit()
 name=sys.argv[1]
 urls=select_str(name)
+urls=list(set(urls))
 #sql_xss.txt
 with open("sql_xss漏洞.txt","w+",encoding="utf-8") as f:
     for url in urls:
