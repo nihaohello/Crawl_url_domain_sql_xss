@@ -19,14 +19,5 @@ re.py是不加互斥锁，只加可重入锁的情况，只输出，效果更快
 python 1.py domain.txt | tee result.txt  
   
   
-  
----------------4.4  
-3.  
-修改为Crawl_url_domain_sql_xss2.py  
-把urls拿进类中，因为Crawl_url_domain_sql_xss.py  
-有两个缺点  
-1.url在类外，每次线程结束，要互斥锁一次文件  
-2.每个线程的url可能重复  
-  
-Crawl_url_domain_sql_xss2.py  url不重复，最后操作一次文件，速度提升
+
   
