@@ -7,9 +7,11 @@ import sys
 import os
 import vthread
 import random
+import threading
+mutlx1=threading.RLock()
 
 class crawl(object):
-    def __init__(self, ur):
+    def __init__(self, url):
         self.url = url
         self.collect_url = []
         self.domain_collect_url=[]
@@ -55,11 +57,14 @@ class crawl(object):
                             i=temp_url+"/"+i
                     if "javascript" not in i and "JavaScript" not in i:
                         if ((not i.endswith(".png")) and (not i.endswith("jpg")) and (not i.endswith("gif")) and (".css" not in i) and ((".js" not in i) or (".json" in i)) and (".ico" not in i)):
-                            if self.Is_url in i:
-                                print(i)
-                                self.crawl(i, num)
-                        # urls2=re.findall('src=".*?"',s.text)
-                        # print(urls2)
+                            if i not in self.collect_url and self.Is_url in i:
+                                    print(i)
+                                    mutlx1.acquire()
+                                    self.collect_url.append(i)
+                                    mutlx1.release()
+                                    self.crawl(i, num)
+                            # urls2=re.findall('src=".*?"',s.text)
+                            # print(urls2)
             except Exception:
                 pass
     def deal_url(self,url):
